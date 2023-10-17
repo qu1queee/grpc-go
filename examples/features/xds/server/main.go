@@ -41,7 +41,7 @@ import (
 )
 
 var (
-	port     = flag.Int("port", 8080, "the port to serve Greeter service requests on. Health service will be served on `port+1`")
+	port     = flag.Int("port", 50051, "the port to serve Greeter service requests on. Health service will be served on `port+1`")
 	xdsCreds = flag.Bool("xds_creds", false, "whether the server should use xDS APIs to receive security configuration")
 )
 
