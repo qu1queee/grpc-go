@@ -50,7 +50,7 @@ func main() {
 	c := pb.NewGreeterClient(conn)
 
 	// Contact the server and print out its response.
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute*5)
 	defer cancel()
 	r, err := c.SayHello(ctx, &pb.HelloRequest{Name: *name})
 	if err != nil {
