@@ -25,6 +25,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	pb "google.golang.org/grpc/examples/helloworld/helloworld"
@@ -41,8 +42,15 @@ var (
 
 func main() {
 	flag.Parse()
-	// Set up a connection to the server.
-	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+
+	retryPolicy := retry.WithMax(10)
+
+	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithUnaryInterceptor(
+		retry.UnaryClientInterceptor(
+			retryPolicy,
+			retry.WithBackoff(retry.BackoffLinear(100*time.Millisecond)),
+		),
+	))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}

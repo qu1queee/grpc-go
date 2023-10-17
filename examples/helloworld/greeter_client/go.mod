@@ -3,6 +3,7 @@ module github.com/qu1queee/grpc-go/examples/helloworld/greeter_client
 go 1.21.0
 
 require (
+	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.1
 	google.golang.org/grpc v1.58.3
 	google.golang.org/grpc/examples v0.0.0-20231016201810-e14d5831b59b
 )
